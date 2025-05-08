@@ -53,9 +53,15 @@ NOTE: USE A VIRTUAL ENVIRONMENT TO RUN THE TENSORFLOW MODULE AS NEW VERSION OF P
 For that : 
 
 ```bash
+Windows
+python3.11 -m venv venv
+venv\Scripts\activate.bat
+
+Mac
 python3.11 -m venv venv
 source venv/bin/activate
-venv\Scripts\Activate.ps1
+
+To install all the dependencies: 
 pip install -r requirements.txt
 ```
 
