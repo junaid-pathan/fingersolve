@@ -49,7 +49,16 @@ $ cd fingersolve
 $ python app.py
 ```
 
-NOTE: USE A VIRTUAL ENVIRONMENT TO RUN THE TENSORFLOW MODULE AS NEW VERSION OF PYTHON DON'T HAVE IT.
+NOTE: USE A VIRTUAL ENVIRONMENT TO RUN THE TENSORFLOW MODULE AS NEW VERSION OF PYTHON DOESN'T HAVE IT.
+For that : 
+
+```bash
+python3.11 -m venv venv
+source venv/bin/activate
+venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
 Make sure you have the trained model file finalmediapipe_landmarks_model.h5 in the backend folder.
 
 🖥️ Frontend (React)
