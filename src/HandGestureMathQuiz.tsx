@@ -7,6 +7,7 @@ export default function HandGestureMathQuiz() {
   const [noHandMessage, setNoHandMessage] = useState("");
   const [score, setScore] = useState(0);
   const [showCorrect, setShowCorrect] = useState(false);
+  const [canPredict, setCanPredict] = useState(true);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const answerRef = useRef<number>(0);
@@ -14,6 +15,24 @@ export default function HandGestureMathQuiz() {
   const num2Ref = useRef<number>(0);
   const opRef = useRef<string>("+");
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  const labelToDigit: Record<string, number> = {
+    Zero: 0, One: 1, Two: 2, Three: 3, Four: 4,
+    Five: 5, Six: 6, Seven: 7, Eight: 8, Nine: 9,
+  };
+
+  const waitForVideo = () =>
+    new Promise<void>((resolve) => {
+      const check = () => {
+        if (videoRef.current && videoRef.current.readyState >= 2) {
+          resolve();
+        } else {
+          requestAnimationFrame(check);
+        }
+      };
+      check();
+    });
+  
 
   const generateMathProblem = () => {
     while (true) {
@@ -45,14 +64,13 @@ export default function HandGestureMathQuiz() {
   };
 
   const captureAndPredict = async () => {
-    if (!videoRef.current || videoRef.current.videoWidth === 0) return;
-
-    const video = videoRef.current;
+    if (!videoRef.current || !canPredict) return;
 
     if (!canvasRef.current) {
       canvasRef.current = document.createElement("canvas");
     }
 
+    const video = videoRef.current;
     const canvas = canvasRef.current;
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -76,25 +94,8 @@ export default function HandGestureMathQuiz() {
 
       clearTimeout(timeoutId);
 
-      if (!res.ok) {
-        throw new Error(`Server responded with status: ${res.status}`);
-      }
-
       const result = await res.json();
       const predictedRaw = result.prediction;
-
-      const labelToDigit: Record<string, number> = {
-        Zero: 0,
-        One: 1,
-        Two: 2,
-        Three: 3,
-        Four: 4,
-        Five: 5,
-        Six: 6,
-        Seven: 7,
-        Eight: 8,
-        Nine: 9,
-      };
 
       const predicted =
         predictedRaw.charAt(0).toUpperCase() + predictedRaw.slice(1).toLowerCase();
@@ -109,11 +110,13 @@ export default function HandGestureMathQuiz() {
         if (labelToDigit[predicted] === answerRef.current) {
           setShowCorrect(true);
           setScore((prev) => prev + 1);
+          setCanPredict(false);
 
           setTimeout(() => {
-            setShowCorrect(false);
             generateMathProblem();
-          }, 3000);
+            setShowCorrect(false);
+            setCanPredict(true);
+          }, 2500);
         }
       }
     } catch (error) {
@@ -122,7 +125,6 @@ export default function HandGestureMathQuiz() {
       } else {
         console.error("Prediction error:", error);
         setNoHandMessage("Error: " + (error as Error).message);
-
       }
     }
   };
@@ -130,12 +132,12 @@ export default function HandGestureMathQuiz() {
   useEffect(() => {
     const initialize = async () => {
       await setupWebcam();
+      await waitForVideo();
       generateMathProblem();
 
-      videoRef.current?.addEventListener("loadedmetadata", () => {
-        const interval = setInterval(captureAndPredict, 1000);
-        return () => clearInterval(interval);
-      });
+      const interval = setInterval(captureAndPredict, 1500);
+
+      return () => clearInterval(interval);
     };
 
     initialize();
@@ -152,7 +154,7 @@ export default function HandGestureMathQuiz() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 flex flex-col items-center justify-center p-4">
       <div className="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-white">
-          <h1 className="text-3xl font-bold text-center">Hand Gesture Math Quiz</h1>
+          <h1 className="text-3xl font-bold text-center">FingerSolve</h1>
           <p className="text-center opacity-90 mt-2">Show your answer with hand gestures!</p>
         </div>
 
