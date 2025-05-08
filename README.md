@@ -43,19 +43,21 @@ If correct ✅, your score increases and a new question appears!
 📦 Installation
 🔧 Backend (Flask + ML)
 
-git clone https://github.com/your-username/fingersolve.git
-cd fingersolve/backend
-pip install -r requirements.txt
-python backend.py
-
+```bash
+$ git clone https://github.com/yourusername/fingersolve.git
+$ cd fingersolve
+$ python app.py
+```
 
 NOTE: USE A VIRTUAL ENVIRONMENT TO RUN THE TENSORFLOW MODULE AS NEW VERSION OF PYTHON DON'T HAVE IT.
 Make sure you have the trained model file finalmediapipe_landmarks_model.h5 in the backend folder.
 
 🖥️ Frontend (React)
+```bash 
 cd ../frontend
 npm install
 npm run dev
+```
 Make sure your frontend is sending prediction requests to the Flask server (http://localhost:5000/predict).
 
 
