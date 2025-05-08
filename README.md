@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+🖐️ FingerSolve
+Solve Math Problems Using Hand Gestures!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+FingerSolve is an interactive web app that turns simple math quizzes into a fun, hands-free experience. Powered by computer vision, OpenCV, MediaPipe, and a neural network, it recognizes your hand gestures in real-time through a webcam to evaluate your answers to math problems.
 
-## Available Scripts
+🚀 Features
+🎥 Webcam-Based Input – Detects hand gestures using the webcam
 
-In the project directory, you can run:
+🧠 Neural Network Model – Trained to recognize digits 0–9 from hand landmarks
 
-### `npm start`
+🧮 Live Math Quizzes – Random addition or subtraction problems
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+🖐️ MediaPipe Landmarks – Used for accurate hand detection
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+⚙️ OpenCV + TensorFlow + Flask – Handles gesture processing and prediction
 
-### `npm test`
+🎨 Modern UI – Built with React.js and Framer Motion
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🛠️ Tech Stack
+Frontend	Backend	ML / CV Tools
+React.js	Flask (Python)	TensorFlow (Keras)
+Tailwind CSS	REST API (JSON)	MediaPipe Hands
+Framer Motion	Base64 image input	OpenCV + PIL
 
-### `npm run build`
+🧠 How It Works
+A random math problem (like 3 + 2) is displayed.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You show the correct number of fingers in front of your webcam.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Captures the image frame
 
-### `npm run eject`
+Extracts 21 hand landmarks using MediaPipe
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Feeds the landmarks into a trained neural network
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Predicts the digit and checks if it matches the correct answer
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+If correct ✅, your score increases and a new question appears!
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+📦 Installation
+🔧 Backend (Flask + ML)
+bash
+Copy
+Edit
+git clone https://github.com/your-username/fingersolve.git
+cd fingersolve/backend
+pip install -r requirements.txt
+python app.py
+Make sure you have the trained model file finalmediapipe_landmarks_model.h5 in the backend folder.
 
-## Learn More
+🖥️ Frontend (React)
+bash
+Copy
+Edit
+cd ../frontend
+npm install
+npm run dev
+Make sure your frontend is sending prediction requests to the Flask server (http://localhost:5000/predict).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+🧪 Dataset & Model
+Dataset: Custom dataset created using MediaPipe's 21-point hand landmarks
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Features: 63 inputs (21 points × x, y, z)
+
+Model: Dense Neural Network (Multi-Layer Perceptron)
+
+Trained With: TensorFlow/Keras
