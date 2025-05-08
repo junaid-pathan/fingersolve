@@ -39,31 +39,25 @@ Predicts the digit and checks if it matches the correct answer
 
 If correct ✅, your score increases and a new question appears!
 
+
 📦 Installation
 🔧 Backend (Flask + ML)
-bash
-Copy
-Edit
+
 git clone https://github.com/your-username/fingersolve.git
 cd fingersolve/backend
 pip install -r requirements.txt
-python app.py
+python backend.py
+
+
+NOTE: USE A VIRTUAL ENVIRONMENT TO RUN THE TENSORFLOW MODULE AS NEW VERSION OF PYTHON DON'T HAVE IT.
 Make sure you have the trained model file finalmediapipe_landmarks_model.h5 in the backend folder.
 
 🖥️ Frontend (React)
-bash
-Copy
-Edit
 cd ../frontend
 npm install
 npm run dev
 Make sure your frontend is sending prediction requests to the Flask server (http://localhost:5000/predict).
 
-🧪 Dataset & Model
-Dataset: Custom dataset created using MediaPipe's 21-point hand landmarks
 
-Features: 63 inputs (21 points × x, y, z)
 
-Model: Dense Neural Network (Multi-Layer Perceptron)
 
-Trained With: TensorFlow/Keras
