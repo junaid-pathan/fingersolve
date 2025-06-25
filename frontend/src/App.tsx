@@ -1,13 +1,12 @@
-import React from 'react';
-import './App.css'; // Create this file if it doesn't exist
-import HandGestureMathQuiz from './HandGestureMathQuiz';
+import { Routes, Route } from 'react-router-dom'
+import HomePage from './home'
+import HandGestureMathQuiz from './HandGestureMathQuiz'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <HandGestureMathQuiz />
-    </div>
-  );
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/quiz" element={<HandGestureMathQuiz />} />
+    </Routes>
+  )
 }
-
-export default App;
