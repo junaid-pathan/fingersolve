@@ -1,10 +1,10 @@
-# Use Python 3.10
+# Use Python 3.10 base image
 FROM python:3.10
 
-# Set working directory
+# Set working directory inside container
 WORKDIR /app
 
-# Install system dependencies for mediapipe & opencv
+# Install system-level dependencies for MediaPipe and OpenCV
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     libglib2.0-0 \
@@ -14,16 +14,16 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install
-COPY backend/requirements.txt .
+# Copy requirements file and install Python dependencies
+COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy backend app code
-COPY backend/ .
+# Copy the rest of the backend code into the container
+COPY . .
 
-# Expose the port Flask runs on
+# Expose Flask port
 EXPOSE 5000
 
-# Start the Flask app
+# Start the app using Gunicorn
 CMD ["gunicorn", "backend:app", "--bind", "0.0.0.0:5000"]
