@@ -6,13 +6,8 @@ from tensorflow.keras.models import load_model
 from PIL import Image
 import cv2
 import mediapipe as mp
-from flask_cors import CORS  # Import CORS
-
-# Initialize Flask app
-app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
-
-# Load the trained gesture classification model
+from flask import send_from_directory
+app = Flask(__name__,static_folder='build', static_url_path='')
 try:
     model = load_model("finalmediapipe_landmarks_model.h5")
     print("Model loaded successfully!")
@@ -32,7 +27,10 @@ labels_dict = {
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return send_from_directory(app.static_folder, 'index.html')
+@app.route('/quiz')
+def quiz():
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
