@@ -1,4 +1,4 @@
-This project uses MediaPipe hand tracking and a neural network to classify American Sign Language (ASL) hand signs from a webcam video feed.
+This project uses MediaPipe hand tracking and a neural network to recognize hand gestures and answer user-given questions through gesture-based interaction.
 
 ## Features
 
