@@ -1,4 +1,5 @@
 # FingerSolve: AI-Powered Hand Gesture Math Solver
+This project uses MediaPipe hand tracking and a neural network to recognize hand gestures and answer user-given questions through gesture-based interaction.
 
 ## Description
 
